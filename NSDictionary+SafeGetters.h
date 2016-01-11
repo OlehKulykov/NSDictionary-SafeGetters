@@ -33,6 +33,7 @@
 /**
  @brief Get integer value from JSON object.
  @detailed Checking for nil and object type for getting value.
+ Range: [NSIntegerMin; NSIntegerMax]
  @param aKey The key object.
  @return Integer value if object not nil and have type as NSNumber or NSString, othervice 0.
  */
@@ -42,6 +43,7 @@
 /**
  @brief Get unsigned integer value from JSON object.
  @detailed Checking for nil and object type for getting value. In case if object is NSString getting integer value and casting to unsigned.
+ Range: [0; NSUIntegerMax]
  @param aKey The key object.
  @return Unsigned integer value if object not nil and have type as NSNumber or NSString, othervice 0.
  */
@@ -51,6 +53,7 @@
 /**
  @brief Get integer 64 bit value from JSON object.
  @detailed Checking for nil and object type for getting value.
+ Range: [INT64_MIN; INT64_MAX]
  @param aKey The key object.
  @return Integer 64 bit value if object not nil and have type as NSNumber or NSString, othervice 0.
  */
@@ -60,6 +63,7 @@
 /**
  @brief Get unsigned integer 64 bit value from JSON object.
  @detailed Checking for nil and object type for getting value. In case if object is NSString getting integer value and casting to unsigned.
+ Range: [0; UINT64_MAX]
  @param aKey The key object.
  @return Unsigned integer 64 bit value if object not nil and have type as NSNumber or NSString, othervice 0.
  */
@@ -69,6 +73,7 @@
 /**
  @brief Get double value from JSON object.
  @detailed Checking for nil and object type for getting value. In all cases getting double value and casting to double.
+ Range: [DBL_MIN; DBL_MAX]
  @param aKey The key object.
  @return Double value if object not nil and have type as NSNumber or NSString, othervice 0.0.
  */
@@ -78,6 +83,7 @@
 /**
  @brief Get float value from JSON object.
  @detailed Checking for nil and object type for getting value. In all cases getting double value and casting to float.
+ Range: [FLT_MIN; FLT_MAX]
  @param aKey The key object.
  @return Float value if object not nil and have type as NSNumber or NSString, othervice 0.0.
  */
@@ -87,6 +93,7 @@
 /**
  @brief Get float value from JSON object.
  @detailed Checking for nil and object type for getting value. In all cases getting double value and casting to float.
+ Range: [DBL_MIN; DBL_MAX] or [FLT_MIN; FLT_MAX]
  @param aKey The key object.
  @return Float value if object not nil and have type as NSNumber or NSString, othervice 0.0.
  */
