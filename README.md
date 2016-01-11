@@ -3,7 +3,7 @@
 
 
 # NSDictionary+SafeGetters
-Safe getting typed values from the dictionary.
+Safe getting typed values from the dictionary. Useful for parsing dictionary object from JSON REST API.
 
 
 ### Features
