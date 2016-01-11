@@ -17,7 +17,11 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
-Safe, informative and typed dictionary getters.
+Safe getting typed values from the dictionary.
+- All getters checks input parameters during debug and generates exceptions
+- Return values exact type which required(depend on getter method)
+- Type casting of the value object to the required type or bounds, if available(eg. NSString <=> NSNUmber, etc.)
+- During casting checks type value bounds and sticks to it's maximum or minimum value(eg. floatForKey return FLT_MAX if value is greater etc.)
                        DESC
 
   s.homepage         = "https://github.com/OlehKulykov/NSDictionary-SafeGetters"
