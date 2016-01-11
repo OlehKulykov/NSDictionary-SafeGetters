@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "NSDictionary+SafeGetters"
-  s.version          = "1.0.7"
+  s.version          = "1.0.8"
   s.summary          = "Safe, informative and typed dictionary getters"
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +29,12 @@ Safe getting typed values from the dictionary.
   s.author           = { "OlehKulykov" => "info@resident.name" }
   s.source           = { :git => "https://github.com/OlehKulykov/NSDictionary-SafeGetters.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '7.0'
+# Platforms
+  s.ios.deployment_target = "7.0"
+  s.osx.deployment_target = "10.7"
+  s.watchos.deployment_target = '2.0'
+  s.tvos.deployment_target = '9.0'
+
   s.requires_arc = true
 
   s.source_files = '*.{h,m,mm}'
