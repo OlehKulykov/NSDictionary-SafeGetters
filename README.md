@@ -4,9 +4,9 @@
 
 # NSDictionary+SafeGetters
 Safe getting typed values from the dictionary. 
-All getters checks input parameters during debug and returns exaxt type value which required.
+All getters checks input parameters during debug and returns exact type value which required.
 Also, most methods supports type casting(eg. strings to numbers etc.) of cource if available.
-During casting to required methods checks type value bounds and sticks to it's maximum or minimum value(eg. ```floatForKey``` return FLT_MAX if value is greater etc.).
+During casting to required methods checks type value bounds and sticks to it's maximum or minimum value(eg. ```floatForKey``` return ```FLT_MAX``` if value is greater etc.).
 
 
 ### Installation with CocoaPods
