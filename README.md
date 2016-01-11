@@ -9,7 +9,7 @@ Safe getting typed values from the dictionary.
 ### Features
 - All getters checks input parameters during debug and generates exceptions
 - Return values exact type which required(depend on getter method)
-- Type casting of the value object to the required type or bounds, if available
+- Type casting of the value object to the required type or bounds, if available(eg. ```NSString``` <=> ```NSNUmber```, etc.)
 - During casting checks type value bounds and sticks to it's maximum or minimum value(eg. ```floatForKey``` return ```FLT_MAX``` if value is greater etc.)
 
 
