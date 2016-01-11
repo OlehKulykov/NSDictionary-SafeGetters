@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "NSDictionary+SafeGetters"
-  s.version          = "0.1.1"
+  s.version          = "1.0.2"
   s.summary          = "Safe, informative and typed dictionary getters"
 
 # This description is used to generate tags and improve search results.
