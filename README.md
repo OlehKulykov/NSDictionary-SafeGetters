@@ -3,6 +3,7 @@
 
 
 # NSDictionary+SafeGetters
+Safe getting typed values from the dictionary. Suuports type casting if available.
 
 
 ### Installation with CocoaPods
