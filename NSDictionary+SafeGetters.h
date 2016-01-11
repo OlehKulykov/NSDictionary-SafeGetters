@@ -33,8 +33,8 @@
 /**
  @brief Get integer value from JSON object.
  @detailed Checking for nil and object type for getting value.
- Range: [NSIntegerMin; NSIntegerMax]
- @param aKey The key object.
+ Range: [NSIntegerMin; NSIntegerMax].
+ @param aKey The key object. Should not be nil.
  @return Integer value if object not nil and have type as NSNumber or NSString, othervice 0.
  */
 - (NSInteger) integerForKey:(nonnull id) aKey;
@@ -44,7 +44,7 @@
  @brief Get unsigned integer value from JSON object.
  @detailed Checking for nil and object type for getting value. In case if object is NSString getting integer value and casting to unsigned.
  Range: [0; NSUIntegerMax]
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Unsigned integer value if object not nil and have type as NSNumber or NSString, othervice 0.
  */
 - (NSUInteger) unsignedIntegerForKey:(nonnull id) aKey;
@@ -54,7 +54,7 @@
  @brief Get integer 64 bit value from JSON object.
  @detailed Checking for nil and object type for getting value.
  Range: [INT64_MIN; INT64_MAX]
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Integer 64 bit value if object not nil and have type as NSNumber or NSString, othervice 0.
  */
 - (int64_t) int64ForKey:(nonnull id) aKey;
@@ -64,7 +64,7 @@
  @brief Get unsigned integer 64 bit value from JSON object.
  @detailed Checking for nil and object type for getting value. In case if object is NSString getting integer value and casting to unsigned.
  Range: [0; UINT64_MAX]
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Unsigned integer 64 bit value if object not nil and have type as NSNumber or NSString, othervice 0.
  */
 - (uint64_t) uint64ForKey:(nonnull id) aKey;
@@ -74,7 +74,7 @@
  @brief Get double value from JSON object.
  @detailed Checking for nil and object type for getting value. In all cases getting double value and casting to double.
  Range: [DBL_MIN; DBL_MAX]
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Double value if object not nil and have type as NSNumber or NSString, othervice 0.0.
  */
 - (double) doubleForKey:(nonnull id) aKey;
@@ -84,7 +84,7 @@
  @brief Get float value from JSON object.
  @detailed Checking for nil and object type for getting value. In all cases getting double value and casting to float.
  Range: [FLT_MIN; FLT_MAX]
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Float value if object not nil and have type as NSNumber or NSString, othervice 0.0.
  */
 - (float) floatForKey:(nonnull id) aKey;
@@ -94,7 +94,7 @@
  @brief Get float value from JSON object.
  @detailed Checking for nil and object type for getting value. In all cases getting double value and casting to float.
  Range: [DBL_MIN; DBL_MAX] or [FLT_MIN; FLT_MAX]
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Float value if object not nil and have type as NSNumber or NSString, othervice 0.0.
  */
 - (CGFloat) cgFloatForKey:(nonnull id) aKey;
@@ -103,7 +103,7 @@
 /**
  @brief Get boolean value from JSON object.
  @detailed Checking for nil and object type for getting value.
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Boolean value if object not nil and have type as NSNumber or NSString, othervice NO. In case if type is NSString trying compare with string "true".
  */
 - (BOOL) booleanForKey:(nonnull id) aKey;
@@ -113,7 +113,7 @@
  @brief Get non empty string value from JSON object.
  @detailed Checking for object type for getting value.
  In a case of NSNumber object, returns number localized description with en-US locale.
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return NSString value if have type NSString and it's length greater then zero, othervice nil.
  */
 - (nullable NSString *) nonEmptyStringForKey:(nonnull id) aKey;
@@ -121,7 +121,7 @@
 
 /**
  @brief Get number object for key.
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Number object or nil if finded object is not number or nil.
  */
 - (nullable NSNumber *) numberForKey:(nonnull id) aKey;
@@ -130,7 +130,7 @@
 /**
  @brief Get string object for key.
  @detailed In a case of NSNumber object, returns number localized description with en-US locale.
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return String object or nil if finded object is not string or nil.
  */
 - (nullable NSString *) stringForKey:(nonnull id) aKey;
@@ -138,7 +138,7 @@
 
 /**
  @brief Get array object for key.
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Array object or nil if finded object is not array or nil.
  */
 - (nullable NSArray *) arrayForKey:(nonnull id) aKey;
@@ -146,7 +146,7 @@
 
 /**
  @brief Get dictionary object for key.
- @param aKey The key object.
+ @param aKey The key object. Should not be nil.
  @return Dictionary object or nil if finded object is not dictionary or nil.
  */
 - (nullable NSDictionary *) dictionaryForKey:(nonnull id) aKey;
