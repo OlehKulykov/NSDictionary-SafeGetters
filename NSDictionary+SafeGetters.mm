@@ -26,12 +26,14 @@
 
 struct NSDSGNumber
 {
-	union {
+	union
+	{
 		unsigned long long u;
 		long long i;
 		double d;
 		BOOL b;
 	} data;
+
 	char type;
 
 	char readBoolean(const char * str)
@@ -78,7 +80,7 @@ struct NSDSGNumber
 		return 0;
 	}
 
-	NSDSGNumber(const char * str) : type(0) { data.u = 0; type = str ? this->read(str) : 0; }
+	NSDSGNumber(const char * str) { data.u = 0; type = str ? this->read(str) : 0; }
 };
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -100,7 +102,7 @@ struct NSDSGNumber
 - (NSUInteger) unsignedIntegerForKey:(id) aKey
 {
 	const uint64_t v = [self uint64ForKey:aKey];
-	return (v > NSIntegerMax) ? (NSUInteger)NSIntegerMax : (NSUInteger)v;
+	return (v >= NSIntegerMax) ? (NSUInteger)NSIntegerMax : (NSUInteger)v;
 }
 
 - (int64_t) int64ForKey:(id) aKey
@@ -179,11 +181,11 @@ struct NSDSGNumber
 			{
 				case 1: return n.data.d; break;
 				case 2:
-					if (n.data.i < DBL_MIN) return DBL_MIN;
-					else if (n.data.i > DBL_MAX) return DBL_MAX;
+					if (n.data.i <= DBL_MIN) return DBL_MIN;
+					else if (n.data.i >= DBL_MAX) return DBL_MAX;
 					return n.data.i;
 					break;
-				case 3: return (n.data.u > DBL_MAX) ? DBL_MAX : n.data.u;  break;
+				case 3: return (n.data.u >= DBL_MAX) ? DBL_MAX : n.data.u;  break;
 				case 4: return n.data.b ? 1 : 0; break;
 				default: break;
 			}
@@ -209,22 +211,22 @@ struct NSDSGNumber
 			switch (n.type)
 			{
 				case 1:
-					if (n.data.d > FLT_MAX) return FLT_MAX;
-					else if (n.data.d < FLT_MIN) return FLT_MIN;
+					if (n.data.d >= FLT_MAX) return FLT_MAX;
+					else if (n.data.d <= FLT_MIN) return FLT_MIN;
 					return n.data.d;
 					break;
 				case 2:
-					if (n.data.i > FLT_MAX) return FLT_MAX;
-					else if (n.data.i < FLT_MIN) return FLT_MIN;
+					if (n.data.i >= FLT_MAX) return FLT_MAX;
+					else if (n.data.i <= FLT_MIN) return FLT_MIN;
 					return n.data.i;
 					break;
-				case 3: return (n.data.u > FLT_MAX) ? FLT_MAX : n.data.u;  break;
+				case 3: return (n.data.u >= FLT_MAX) ? FLT_MAX : n.data.u;  break;
 				case 4: return n.data.b ? 1 : 0; break;
 				default: break;
 			}
 		}
 	}
-	return 0.0;
+	return 0.0f;
 }
 
 - (CGFloat) cgFloatForKey:(nonnull id) aKey
@@ -260,7 +262,7 @@ struct NSDSGNumber
 			{
 				case 1: return (n.data.d == 0) ? NO : YES; break;
 				case 2: return (n.data.i == 0) ? NO : YES; break;
-				case 3: return (n.data.u == 0) ? NO : YES;  break;
+				case 3: return (n.data.u == 0) ? NO : YES; break;
 				case 4: return n.data.b; break;
 				default: break;
 			}
