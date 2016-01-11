@@ -121,18 +121,7 @@ struct NSDSGNumber
 			{
 				case 1: return n.data.d; break;
 				case 2: return n.data.i; break;
-				case 3:
-//#if defined(DEBUG) || defined(_DEBUG)
-//					if (n.data.u >= INT64_MAX)
-//					{
-//						NSLog(@"WARNING %s: downcast value [%@] => [%llu]", __PRETTY_FUNCTION__, object, (uint64_t)INT64_MAX);
-//						return INT64_MAX;
-//					}
-//					return n.data.u;
-//#else
-					return (n.data.u >= INT64_MAX) ? INT64_MAX : n.data.u;
-//#endif
-					break;
+				case 3: return (n.data.u >= INT64_MAX) ? INT64_MAX : n.data.u; break;
 				case 4: return n.data.b ? 1 : 0; break;
 				default: break;
 			}
@@ -151,7 +140,11 @@ struct NSDSGNumber
 #endif
 	if (object)
 	{
-		if ([object isKindOfClass:[NSNumber class]]) return [object unsignedLongLongValue];
+		if ([object isKindOfClass:[NSNumber class]])
+		{
+			if ([(NSNumber *)object isNegative]) return 0;
+			return [(NSNumber *)object unsignedLongLongValue];
+		}
 		else if ([object isKindOfClass:[NSString class]])
 		{
 			NSDSGNumber n([(NSString *)object UTF8String]);
@@ -201,7 +194,37 @@ struct NSDSGNumber
 
 - (float) floatForKey:(id) aKey
 {
-	return (float)[self doubleForKey:aKey];
+#if defined(DEBUG) || defined(_DEBUG)
+	NSParameterAssert(aKey);
+	id object = [self objectForKey:aKey];
+#else
+	id object = aKey ? [self objectForKey:aKey] : nil;
+#endif
+	if (object)
+	{
+		if ([object isKindOfClass:[NSNumber class]]) return [object floatValue];
+		else if ([object isKindOfClass:[NSString class]])
+		{
+			NSDSGNumber n([(NSString *)object UTF8String]);
+			switch (n.type)
+			{
+				case 1:
+					if (n.data.d > FLT_MAX) return FLT_MAX;
+					else if (n.data.d < FLT_MIN) return FLT_MIN;
+					return n.data.d;
+					break;
+				case 2:
+					if (n.data.i > FLT_MAX) return FLT_MAX;
+					else if (n.data.i < FLT_MIN) return FLT_MIN;
+					return n.data.i;
+					break;
+				case 3: return (n.data.u > FLT_MAX) ? FLT_MAX : n.data.u;  break;
+				case 4: return n.data.b ? 1 : 0; break;
+				default: break;
+			}
+		}
+	}
+	return 0.0;
 }
 
 - (CGFloat) cgFloatForKey:(nonnull id) aKey
@@ -209,13 +232,13 @@ struct NSDSGNumber
 #if defined(CGFLOAT_IS_DOUBLE)
 
 #if CGFLOAT_IS_DOUBLE
-	return (CGFloat)[self doubleForKey:aKey];
+	return [self doubleForKey:aKey];
 #else
-	return (CGFloat)[self floatForKey:aKey];
+	return [self floatForKey:aKey];
 #endif
 
 #else
-	return (CGFloat)[self doubleForKey:aKey];
+	return [self doubleForKey:aKey];
 #endif
 }
 
@@ -330,3 +353,26 @@ struct NSDSGNumber
 }
 
 @end
+
+
+
+@implementation NSNumber(ValueTypeCheck)
+
+- (BOOL) isNegative
+{
+	const NSUInteger t = *(const uint16_t*)[self objCType];
+	/// can't hardcode @encode result, just use in runtime.
+	if (t == *(const uint16_t*)@encode(int)) return ([self intValue] < 0);
+	else if (t == *(const uint16_t*)@encode(double)) return ([self doubleValue] < 0);
+	else if (t == *(const uint16_t*)@encode(float)) return ([self floatValue] < 0);
+	else if (t == *(const uint16_t*)@encode(char)) return ([self charValue] < 0);
+	else if (t == *(const uint16_t*)@encode(NSInteger)) return ([self integerValue] < 0);
+	else if (t == *(const uint16_t*)@encode(long long)) return ([self longLongValue] < 0);
+	else if (t == *(const uint16_t*)@encode(short)) return ([self shortValue] < 0);
+	else if (t == *(const uint16_t*)@encode(long)) return ([self longValue] < 0);
+	return NO;
+}
+
+@end
+
+

@@ -145,3 +145,18 @@
 - (nullable NSDictionary *) dictionaryForKey:(nonnull id) aKey;
 
 @end
+
+
+
+/**
+ @brief Additional NSNumber category.
+ */
+@interface NSNumber(ValueTypeCheck)
+
+/**
+ @brief Check number value is negative.
+ Encode number cType, check only signed types less zero.
+ */
+- (BOOL) isNegative;
+
+@end
