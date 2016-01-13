@@ -1,4 +1,7 @@
-Changes on version 1.0.8 (current):
+Changes on version 1.0.10 (current):
+- Additional linking with std++.
+
+Changes on version 1.0.8:
 - Added osx, watchos and tvos targets.
 
 Changes on version 1.0.6:
