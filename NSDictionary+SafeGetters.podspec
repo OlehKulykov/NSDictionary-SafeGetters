@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "NSDictionary+SafeGetters"
-  s.version          = "1.0.8"
+  s.version          = "1.0.9"
   s.summary          = "Safe, informative and typed dictionary getters"
 
 # This description is used to generate tags and improve search results.
@@ -37,7 +37,7 @@ Safe getting typed values from the dictionary.
 
   s.requires_arc = true
 
-  s.source_files = '*.{h,m,mm}'
+  s.source_files = '*.{h,mm}'
 
   s.public_header_files = '*.h'
 end

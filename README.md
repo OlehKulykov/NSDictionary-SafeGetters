@@ -16,7 +16,7 @@ Safe getting typed values from the dictionary. Useful for parsing dictionary obj
 ### Installation with CocoaPods
 #### Podfile
 ```ruby
-pod 'NSDictionary+SafeGetters', '~> 1.0'
+pod 'NSDictionary+SafeGetters'
 ```
 
 ### Available getters

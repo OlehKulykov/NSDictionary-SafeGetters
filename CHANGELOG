@@ -1,0 +1,15 @@
+Changes on version 1.0.8 (current):
+- Added osx, watchos and tvos targets.
+
+Changes on version 1.0.6:
+- Update documentation.
+
+Changes on version 1.0.4:
+- Additional NSNumber category(check is value negative).
+- Method floatForKey controls bounds[FLT_MIN; FLT_MAX].
+
+Changes on version 1.0.3:
+- Internal implementation with C++.
+
+Changes on version 1.0.0:
+- Initial release.
