@@ -7,9 +7,9 @@ Safe getting typed values from the dictionary. Useful for parsing dictionary obj
 
 
 ### Features
-- All getters checks input parameters during debug and generates exceptions
+- All getters checks input parameters and generates exceptions during debug only, in release return default values
 - Return values exact type which required(depend on getter method)
-- Type casting of the value object to the required type or bounds, if available(eg. ```NSString``` <=> ```NSNUmber```, etc.)
+- Type casting of the value object to the required type or bounds, if available(eg. ```NSString``` <=> ```NSNumber```, etc.)
 - During casting checks type value bounds and sticks to it's maximum or minimum value(eg. ```floatForKey``` return ```FLT_MAX``` if value is greater etc.)
 
 
