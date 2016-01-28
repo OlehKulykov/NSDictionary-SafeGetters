@@ -1,4 +1,7 @@
-Changes on version 1.0.10 (current):
+Changes on version 2.0.0 (current):
+- Getters with list of possible keys and return first suitable value for key in list.
+
+Changes on version 1.0.10:
 - Additional linking with std++.
 
 Changes on version 1.0.8:
