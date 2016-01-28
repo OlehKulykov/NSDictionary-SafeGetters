@@ -13,10 +13,10 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 Safe getting typed values from the dictionary.
 - All getters checks input parameters during debug and generates exceptions
+- All getters have additional method with list of possible keys and return first suitable value for key in list
 - Return values exact type which required(depend on getter method)
-- Type casting of the value object to the required type or bounds, if available(eg. NSString <=> NSNUmber, etc.)
-- During casting checks type value bounds and sticks to it's maximum or minimum value(eg. floatForKey return FLT_MAX if value is greater etc.)
-- All getters have additional with list of the keys
+- Type casting of the value object to the required type or bounds, if available(eg. NSString <=> NSNUmber, etc)
+- During casting checks type value bounds and sticks to it's maximum or minimum value(eg. floatForKey return FLT_MAX if value is greater etc)
                        DESC
 
   s.homepage         = "https://github.com/OlehKulykov/NSDictionary-SafeGetters"

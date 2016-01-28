@@ -70,6 +70,10 @@
 	dictionary = @{ @"last_name" : @"Foo last name" };
 	value = [dictionary stringForKeys:@"formated_name", @"first_name", nil];
 	XCTAssert(value == nil);
+
+	dictionary = @{ @"first_name" : @"Foo name", @"last_name" : @"Foo last name" };
+	value = [dictionary nonEmptyStringForKeys:@"formated_name", @"first_name", nil];
+	XCTAssertEqualObjects(value, @"Foo name"); // <- "first_name"
 }
 
 - (void) testFormated3
@@ -87,22 +91,26 @@
 
 - (void) testFormated4
 {
-	NSNumber * value = nil;
-	NSDictionary * dictionary = @{ @"id" : @"5678",
-								   @"_id" : @5678,
+	NSNumber * idNumber = nil;
+	NSDictionary * dictionary = @{ @"_id" : @"5678",
+								   @"id" : @5678,
 								   @"identifier" : @90 };
-	value = [dictionary numberForKeys:@"id", @"_id", nil];
-	XCTAssertEqualObjects(value, @5678);
+	idNumber = [dictionary numberForKeys:@"_id", @"id", nil];
+	XCTAssertEqualObjects(idNumber, @5678);
 
 	dictionary = @{ @"id" : @[],
 					@"_id" : @"5678",
 					@"identifier" : @90 };
-	value = [dictionary numberForKeys:@"id", @"_id", nil];
-	XCTAssertEqualObjects(value, @5678);
+	idNumber = [dictionary numberForKeys:@"_id", @"id", nil];
+	XCTAssertEqualObjects(idNumber, @5678);
 
 	dictionary = @{ @"identifier" : @90 };
-	value = [dictionary numberForKeys:@"id", @"_id", nil];
-	XCTAssert(value == nil);
+	idNumber = [dictionary numberForKeys:@"id", @"_id", nil];
+	XCTAssert(idNumber == nil);
+
+	dictionary = @{ @"id" : @5678, @"_id" : @"5678", @"identifier" : @90 };
+	idNumber = [dictionary numberForKeys:@"_id", @"id", nil];
+	XCTAssertEqualObjects(idNumber, @5678); // <- "_id" located and converted from string to number
 }
 
 - (void) testFormated5
@@ -121,6 +129,10 @@
 	dictionary = @{ @"photo_url" : @"http://photo_url" };
 	url = [dictionary nonEmptyStringForKeys:@"avatar_url", @"photo_url", nil];
 	XCTAssertEqualObjects(url, @"http://photo_url");
+
+	dictionary = @{ @"avatar_url" : @"http://avatar_url", @"photo_url" : @"http://photo_url" };
+	url = [dictionary nonEmptyStringForKeys:@"original_photo_url", @"avatar_url", @"photo_url", nil];
+	XCTAssertEqualObjects(url, @"http://avatar_url"); // <- "avatar_url"
 }
 
 - (void) testNonEmptyStringForKeys
