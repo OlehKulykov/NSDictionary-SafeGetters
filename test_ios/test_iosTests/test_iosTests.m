@@ -8,6 +8,251 @@
 
 @implementation test_iosTests
 
+- (void) testFormated1
+{
+	NSString * value = nil;
+	NSDictionary * dictionary = @{ @"first_name" : @"Foo name",
+								   @"last_name" : @"Foo last name",
+								   @"formated_name" : @"Foo name & last name" };
+	value = [dictionary nonEmptyStringForKeys:@"formated_name", @"first_name", nil];
+	XCTAssertEqualObjects(value, @"Foo name & last name");
+
+	dictionary = @{ @"first_name" : @"Foo name",
+					@"last_name" : @"Foo last name",
+					@"formated_name" : @"" };
+	value = [dictionary nonEmptyStringForKeys:@"formated_name", @"first_name", nil];
+	XCTAssertEqualObjects(value, @"Foo name");
+
+
+	dictionary = @{ @"first_name" : @"Foo name",
+					@"last_name" : @"Foo last name" };
+	value = [dictionary nonEmptyStringForKeys:@"formated_name", @"first_name", nil];
+	XCTAssertEqualObjects(value, @"Foo name");
+
+
+	dictionary = @{ @"last_name" : @"Foo last name" };
+	value = [dictionary nonEmptyStringForKeys:@"formated_name", @"first_name", @"last_name", nil];
+	XCTAssertEqualObjects(value, @"Foo last name");
+
+
+	dictionary = @{ @"last_name" : @"Foo last name" };
+	value = [dictionary nonEmptyStringForKeys:@"formated_name", @"first_name", nil];
+	XCTAssert(value == nil);
+}
+
+- (void) testFormated2
+{
+	NSString * value = nil;
+	NSDictionary * dictionary = @{ @"first_name" : @"Foo name",
+								   @"last_name" : @"Foo last name",
+								   @"formated_name" : @"Foo name & last name" };
+	value = [dictionary stringForKeys:@"formated_name", @"first_name", nil];
+	XCTAssertEqualObjects(value, @"Foo name & last name");
+
+	dictionary = @{ @"first_name" : @"Foo name",
+					@"last_name" : @"Foo last name",
+					@"formated_name" : @"" };
+	value = [dictionary stringForKeys:@"formated_name", @"first_name", nil];
+	XCTAssertEqualObjects(value, @"");
+
+
+	dictionary = @{ @"first_name" : @"Foo name",
+					@"last_name" : @"Foo last name" };
+	value = [dictionary stringForKeys:@"formated_name", @"first_name", nil];
+	XCTAssertEqualObjects(value, @"Foo name");
+
+
+	dictionary = @{ @"last_name" : @"Foo last name" };
+	value = [dictionary stringForKeys:@"formated_name", @"first_name", @"last_name", nil];
+	XCTAssertEqualObjects(value, @"Foo last name");
+
+
+	dictionary = @{ @"last_name" : @"Foo last name" };
+	value = [dictionary stringForKeys:@"formated_name", @"first_name", nil];
+	XCTAssert(value == nil);
+}
+
+- (void) testFormated3
+{
+	NSNumber * value = nil;
+	NSDictionary * dictionary = @{ @"_id" : @5678,
+								   @"identifier" : @90 };
+	value = [dictionary numberForKeys:@"id", @"_id", nil];
+	XCTAssertEqualObjects(value, @5678);
+
+	dictionary = @{ @"identifier" : @90 };
+	value = [dictionary numberForKeys:@"id", @"_id", nil];
+	XCTAssert(value == nil);
+}
+
+- (void) testFormated4
+{
+	NSNumber * value = nil;
+	NSDictionary * dictionary = @{ @"id" : @"5678",
+								   @"_id" : @5678,
+								   @"identifier" : @90 };
+	value = [dictionary numberForKeys:@"id", @"_id", nil];
+	XCTAssertEqualObjects(value, @5678);
+
+	dictionary = @{ @"id" : @[],
+					@"_id" : @"5678",
+					@"identifier" : @90 };
+	value = [dictionary numberForKeys:@"id", @"_id", nil];
+	XCTAssertEqualObjects(value, @5678);
+
+	dictionary = @{ @"identifier" : @90 };
+	value = [dictionary numberForKeys:@"id", @"_id", nil];
+	XCTAssert(value == nil);
+}
+
+- (void) testFormated5
+{
+	NSString * url = nil;
+	NSDictionary * dictionary = @{ @"avatar_url" : @"http://avatar_url",
+								   @"photo_url" : @"http://photo_url" };
+	url = [dictionary nonEmptyStringForKeys:@"avatar_url", @"photo_url", nil];
+	XCTAssertEqualObjects(url, @"http://avatar_url");
+
+	dictionary = @{ @"avatar_url" : @"",
+					@"photo_url" : @"http://photo_url" };
+	url = [dictionary nonEmptyStringForKeys:@"avatar_url", @"photo_url", nil];
+	XCTAssertEqualObjects(url, @"http://photo_url");
+
+	dictionary = @{ @"photo_url" : @"http://photo_url" };
+	url = [dictionary nonEmptyStringForKeys:@"avatar_url", @"photo_url", nil];
+	XCTAssertEqualObjects(url, @"http://photo_url");
+}
+
+- (void) testNonEmptyStringForKeys
+{
+	NSString * value;
+	value = [@{@"k" : @{}} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value == nil);
+
+	value = [@{@"k" : @[]} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value == nil);
+
+	value = [@{@"k" : @""} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value == nil);
+
+	value = [@{@"k1" : @""} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value == nil);
+
+	value = [@{} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value == nil);
+
+	value = [@{@"k" : @0} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	value = [@{@"k" : @-1} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	value = [@{@"k" : @NSIntegerMax} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	value = [@{@"k" : @"0"} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	NSString * s = [NSString stringWithFormat:@"%lli", (long long)NSIntegerMin];
+	value = [@{@"k" : s} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	s = [NSString stringWithFormat:@"%li", NSIntegerMax];
+	value = [@{@"k" : s} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	value = [@{@"k" : @"true"} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	value = [@{@"k" : @"YES"} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	value = [@{@"k" : @"false"} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	value = [@{@"k" : @"NO"} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	value = [@{@"k" : @"bla bla"} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	s = [NSString stringWithFormat:@"%lli", (long long)INT64_MIN];
+	value = [@{@"k" : s} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	s = [NSString stringWithFormat:@"%lli", (long long)INT64_MAX];
+	value = [@{@"k" : s} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+
+	s = [NSString stringWithFormat:@"%llu", (unsigned long long)UINT64_MAX];
+	value = [@{@"k" : s} nonEmptyStringForKeys:@"nil", @"k", nil];
+	XCTAssert(value != nil);
+}
+
+- (void) testIntegerForKeys
+{
+	NSInteger value;
+
+	value = [@{@"k" : @{}} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @[]} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @""} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @0} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @-1} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == -1);
+
+	value = [@{@"k" : @NSIntegerMin} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSIntegerMin);
+
+	value = [@{@"k" : @NSIntegerMax} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSIntegerMax);
+
+	value = [@{@"k" : @"0"} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	NSString * s = [NSString stringWithFormat:@"%lli", (long long)NSIntegerMin];
+	value = [@{@"k" : s} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSIntegerMin);
+
+	s = [NSString stringWithFormat:@"%li", NSIntegerMax];
+	value = [@{@"k" : s} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSIntegerMax);
+
+	value = [@{@"k" : @"true"} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 1);
+
+	value = [@{@"k" : @"YES"} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 1);
+
+	value = [@{@"k" : @"false"} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @"NO"} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @"bla bla"} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	s = [NSString stringWithFormat:@"%lli", (long long)INT64_MIN];
+	value = [@{@"k" : s} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSIntegerMin);
+
+	s = [NSString stringWithFormat:@"%lli", (long long)INT64_MAX];
+	value = [@{@"k" : s} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSIntegerMax);
+
+	s = [NSString stringWithFormat:@"%llu", (unsigned long long)UINT64_MAX];
+	value = [@{@"k" : s} integerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSIntegerMax);
+}
+
 - (void) testIntegerForKey
 {
 	XCTAssert([@{@"k" : @{}} integerForKey:@"k"] == 0);
@@ -44,6 +289,75 @@
 	XCTAssert([@{@"k" : s} integerForKey:@"k"] == NSIntegerMax);
 }
 
+- (void) testUnsignedIntegersForKey
+{
+	NSUInteger value;
+
+	value = [@{@"k" : @{}} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @[]} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @""} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @0} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @-1} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @NSIntegerMin} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @NSIntegerMax} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSIntegerMax);
+
+	value = [@{@"k" : @"0"} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	NSString * s = [NSString stringWithFormat:@"%lli", (long long)NSIntegerMin];
+	value = [@{@"k" : s} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	s = [NSString stringWithFormat:@"%li", NSIntegerMax];
+	value = [@{@"k" : s} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSIntegerMax);
+
+	value = [@{@"k" : @"true"} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 1);
+
+	value = [@{@"k" : @"YES"} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 1);
+
+	value = [@{@"k" : @"false"} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @"NO"} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	value = [@{@"k" : @"bla bla"} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	s = [NSString stringWithFormat:@"%lli", (long long)INT64_MIN];
+	value = [@{@"k" : s} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == 0);
+
+	s = [NSString stringWithFormat:@"%lli", (long long)INT64_MAX];
+	value = [@{@"k" : s} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSUIntegerMax);
+
+	s = [NSString stringWithFormat:@"%llu", (unsigned long long)UINT64_MAX];
+	value = [@{@"k" : s} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSUIntegerMax);
+
+	s = [NSString stringWithFormat:@"%llu", (unsigned long long)NSUIntegerMax];
+	value = [@{@"k" : s} unsignedIntegerForKeys:@"nil", @"k", nil];
+	XCTAssert(value == NSUIntegerMax);
+}
+
+
 - (void) testUnsignedIntegerForKey
 {
 	XCTAssert([@{@"k" : @{}} unsignedIntegerForKey:@"k"] == 0);
@@ -74,10 +388,13 @@
 	XCTAssert([@{@"k" : s} unsignedIntegerForKey:@"k"] == 0);
 
 	s = [NSString stringWithFormat:@"%lli", (long long)INT64_MAX];
-	XCTAssert([@{@"k" : s} unsignedIntegerForKey:@"k"] == NSIntegerMax);
+	XCTAssert([@{@"k" : s} unsignedIntegerForKey:@"k"] == NSUIntegerMax);
 
 	s = [NSString stringWithFormat:@"%llu", (unsigned long long)UINT64_MAX];
-	XCTAssert([@{@"k" : s} unsignedIntegerForKey:@"k"] == NSIntegerMax);
+	XCTAssert([@{@"k" : s} unsignedIntegerForKey:@"k"] == NSUIntegerMax);
+
+	s = [NSString stringWithFormat:@"%llu", (unsigned long long)NSUIntegerMax];
+	XCTAssert([@{@"k" : s} unsignedIntegerForKey:@"k"] == NSUIntegerMax);
 }
 
 - (void) testInt64ForKey
@@ -260,6 +577,8 @@
 	XCTAssert([@{@"k" : @{}} nonEmptyStringForKey:@"k"] == nil);
 	XCTAssert([@{@"k" : @[]} nonEmptyStringForKey:@"k"] == nil);
 	XCTAssert([@{@"k" : @""} nonEmptyStringForKey:@"k"] == nil);
+	XCTAssert([@{@"k1" : @""} nonEmptyStringForKey:@"k"] == nil);
+	XCTAssert([@{} nonEmptyStringForKey:@"k"] == nil);
 
 	XCTAssert([@{@"k" : @0} nonEmptyStringForKey:@"k"] != nil);
 	XCTAssert([@{@"k" : @-1} nonEmptyStringForKey:@"k"] != nil);
