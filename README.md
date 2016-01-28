@@ -8,9 +8,10 @@ Safe getting typed values from the dictionary. Useful for parsing dictionary obj
 
 ### Features
 - All getters checks input parameters and generates exceptions during debug only, in release return default values
+- All getters have additional method with list of possible keys and return first suitable value for key in list(see examples)
 - Return values exact type which required(depend on getter method)
 - Type casting of the value object to the required type or bounds, if available(eg. ```NSString``` <=> ```NSNumber```, etc.)
-- During casting checks type value bounds and sticks to it's maximum or minimum value(eg. ```floatForKey``` return ```FLT_MAX``` if value is greater etc.)
+- During casting checks type value bounds and sticks to it's maximum or minimum value(eg. ```floatForKey``` return ```FLT_MAX``` if value is greater etc)
 
 
 ### Installation with CocoaPods
@@ -18,6 +19,34 @@ Safe getting typed values from the dictionary. Useful for parsing dictionary obj
 ```ruby
 pod 'NSDictionary+SafeGetters'
 ```
+
+### Example getters with list of possible keys
+During parsing, for instande REST responce, we are selecting value from several keys(check for existance, few ```if() {} else {}``` operators). Using getters with list of possible keys such functionality implements more faster.
+#### Example: select one of the name for display/store or get one of the urls's or get id etc
+```obj-c
+NSDictionary * dictionary = @{ @"first_name" : @"Foo name",
+								   @"last_name" : @"Foo last name",
+								   @"formated_name" : @"Foo name & last name" };
+// first look for "formated_name" and than for "first_name"
+NSString * value = [dictionary nonEmptyStringForKeys:@"formated_name", @"first_name", nil];
+XCTAssertEqualObjects(value, @"Foo name & last name"); // <- "formated_name"
+
+// without "formated_name"
+dictionary = @{ @"first_name" : @"Foo name", @"last_name" : @"Foo last name" };
+value = [dictionary nonEmptyStringForKeys:@"formated_name", @"first_name", nil];
+XCTAssertEqualObjects(value, @"Foo name"); // <- "first_name"
+
+// get image url from available
+dictionary = @{ @"avatar_url" : @"http://avatar_url", @"photo_url" : @"http://photo_url" };
+NSString * url = [dictionary nonEmptyStringForKeys:@"original_photo_url", @"avatar_url", @"photo_url", nil];
+XCTAssertEqualObjects(url, @"http://avatar_url"); // <- "avatar_url"
+
+// get id
+dictionary = @{ @"id" : @5678, @"_id" : @"5678", @"identifier" : @90 };
+idNumber = [dictionary numberForKeys:@"_id", @"id", nil];
+XCTAssertEqualObjects(idNumber, @5678); // <- "_id" located and converted from string to number
+```
+
 
 ### Available getters
 ```obj-c
