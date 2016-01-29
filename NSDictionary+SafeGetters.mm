@@ -22,66 +22,7 @@
 
 
 #import "NSDictionary+SafeGetters.h"
-#import <Foundation/Foundation.h>
-
-struct NSDSGNumber
-{
-	union
-	{
-		unsigned long long u;
-		long long i;
-		double d;
-		BOOL b;
-	} data;
-
-	char type;
-
-	char readBoolean(const char * str)
-	{
-		if (strncmp(str, "true", 4) == 0 || strncmp(str, "YES", 3) == 0)
-		{
-			data.b = YES;
-			return 4;
-		}
-		if (strncmp(str, "false", 5) == 0 || strncmp(str, "NO", 2) == 0)
-		{
-			data.b = NO;
-			return 4;
-		}
-		return 0;
-	}
-
-	char read(const char * str)
-	{
-		const char result = this->readBoolean(str);
-		if (result) return result;
-
-		int isReal = 0, isNegative = 0;
-		const char * s = str;
-		while (*s && !isReal) if (*s++ == '.') isReal = 1;
-
-		while (*str)
-		{
-			isNegative = (*str == '-');
-			if (isReal)
-			{
-				if (sscanf(str, "%lf", &data.d) == 1) return 1;
-			}
-			if (isNegative)
-			{
-				if (sscanf(str, "%lli", &data.i) == 1) return 2;
-			}
-			else
-			{
-				if (sscanf(str, "%llu", &data.u) == 1) return 3;
-			}
-			str++;
-		}
-		return 0;
-	}
-
-	NSDSGNumber(const char * str) { data.u = 0; type = str ? this->read(str) : 0; }
-};
+#include "NSDictionary+SafeGetters.hpp"
 
 #define NSDICT_READ_ARGS_TO_RESULT(GET_VAL_METHOD_NAME) \
 	va_list argsList; \
@@ -560,5 +501,4 @@ struct NSDSGNumber
 }
 
 @end
-
 

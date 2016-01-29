@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "NSDictionary+SafeGetters"
-  s.version          = "2.0.0"
+  s.version          = "2.1.0"
   s.summary          = "Safe, informative and typed dictionary getters"
   s.description      = <<-DESC
 Safe getting typed values from the dictionary.
@@ -32,7 +32,7 @@ Safe getting typed values from the dictionary.
 
   s.requires_arc = true
 
-  s.source_files = '*.{h,mm}'
+  s.source_files = '*.{h,hpp,mm}'
 
   s.public_header_files = '*.h'
   s.libraries = 'stdc++'

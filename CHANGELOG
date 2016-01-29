@@ -1,4 +1,7 @@
-Changes on version 2.0.0 (current):
+Changes on version 2.1.0 (current):
+- Split C++ and Objective-C implementation.
+
+Changes on version 2.0.0:
 - Getters with list of possible keys and return first suitable value for key in list.
 
 Changes on version 1.0.10:
