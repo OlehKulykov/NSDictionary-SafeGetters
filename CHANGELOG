@@ -1,5 +1,5 @@
 Changes on version 2.1.1 (current):
-- Increase read/parse speed by disabling ARC.
+- Increase read/parse speed by disabling ARC, 60% less time.
 
 Changes on version 2.1.0:
 - Split C++ and Objective-C implementation.

@@ -29,13 +29,14 @@
 
 - (void) testPerformanceParamsList
 {
-	// 0
-	// testPerformanceParamsList]' measured [Time, seconds] average: 0.023,
+	// 0 - original code
+	// measured [Time, seconds] average: 0.023,
 	// relative standard deviation: 1.347%, values: [0.023632, 0.023141, 0.023103, 0.023294, 0.022907, 0.023449, 0.023050, 0.022710, 0.022681, 0.022693]
 
-	// testPerformanceParamsList]' measured [Time, seconds] average: 0.014,
+	// 1 - first optimization step
+	// measured [Time, seconds] average: 0.014,
 	// relative standard deviation: 0.981%, values: [0.014099, 0.014047, 0.013902, 0.013842, 0.013766, 0.013760, 0.014156, 0.014000, 0.014064, 0.013832]
-	
+
     [self measureBlock:^{
 		NSDictionary * dictionary = @{ @"first_name" : @"Foo name",
 									   @"last_name" : @"Foo last name",
