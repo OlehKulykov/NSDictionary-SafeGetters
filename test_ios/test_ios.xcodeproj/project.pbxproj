@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D2216351C60D5D70068BEB1 /* test_parsingSpeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2216341C60D5D70068BEB1 /* test_parsingSpeed.m */; };
 		3D3C825C1C43BB7A0023B296 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C825B1C43BB7A0023B296 /* main.m */; };
 		3D3C825F1C43BB7A0023B296 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C825E1C43BB7A0023B296 /* AppDelegate.m */; };
 		3D3C82621C43BB7A0023B296 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C82611C43BB7A0023B296 /* ViewController.m */; };
@@ -14,8 +15,8 @@
 		3D3C82671C43BB7A0023B296 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D3C82661C43BB7A0023B296 /* Assets.xcassets */; };
 		3D3C826A1C43BB7A0023B296 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D3C82681C43BB7A0023B296 /* LaunchScreen.storyboard */; };
 		3D3C82751C43BB7A0023B296 /* test_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C82741C43BB7A0023B296 /* test_iosTests.m */; };
-		3D3C82821C43BBB70023B296 /* NSDictionary+SafeGetters.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C82811C43BBB70023B296 /* NSDictionary+SafeGetters.mm */; };
-		3D3C82831C43BBB70023B296 /* NSDictionary+SafeGetters.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C82811C43BBB70023B296 /* NSDictionary+SafeGetters.mm */; };
+		3D3C82821C43BBB70023B296 /* NSDictionary+SafeGetters.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C82811C43BBB70023B296 /* NSDictionary+SafeGetters.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3D3C82831C43BBB70023B296 /* NSDictionary+SafeGetters.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C82811C43BBB70023B296 /* NSDictionary+SafeGetters.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D2216341C60D5D70068BEB1 /* test_parsingSpeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = test_parsingSpeed.m; sourceTree = "<group>"; };
 		3D3C82571C43BB790023B296 /* test_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3C825B1C43BB7A0023B296 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3D3C825D1C43BB7A0023B296 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				3D3C82741C43BB7A0023B296 /* test_iosTests.m */,
+				3D2216341C60D5D70068BEB1 /* test_parsingSpeed.m */,
 				3D3C82761C43BB7A0023B296 /* Info.plist */,
 			);
 			path = test_iosTests;
@@ -239,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D3C82831C43BBB70023B296 /* NSDictionary+SafeGetters.mm in Sources */,
+				3D2216351C60D5D70068BEB1 /* test_parsingSpeed.m in Sources */,
 				3D3C82751C43BB7A0023B296 /* test_iosTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

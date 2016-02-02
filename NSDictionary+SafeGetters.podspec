@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "NSDictionary+SafeGetters"
-  s.version          = "2.1.0"
+  s.version          = "2.1.1"
   s.summary          = "Safe, informative and typed dictionary getters"
   s.description      = <<-DESC
 Safe getting typed values from the dictionary.
@@ -30,7 +30,7 @@ Safe getting typed values from the dictionary.
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
 
-  s.requires_arc = true
+  s.requires_arc = false
 
   s.source_files = '*.{h,hpp,mm}'
 
