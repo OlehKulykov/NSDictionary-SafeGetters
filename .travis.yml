@@ -1,0 +1,15 @@
+language: objective-c
+
+xcode_project: test_ios/test_ios.xcodeproj
+xcode_scheme: test_ios
+
+# current
+osx_image: xcode7.2
+xcode_sdk: iphonesimulator9.2
+
+#matrix:
+#  include:
+#    # beta
+#    - os: osx
+#      osx_image: xcode7.3
+#      xcode_sdk: iphonesimulator9.3
