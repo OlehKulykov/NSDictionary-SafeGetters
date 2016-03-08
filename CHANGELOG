@@ -1,4 +1,7 @@
-Changes on version 2.1.1 (current):
+Changes on version 2.1.2 (current):
+- Tests small fix.
+
+Changes on version 2.1.1:
 - Increase read/parse speed by disabling ARC, 60% less time.
 
 Changes on version 2.1.0:
