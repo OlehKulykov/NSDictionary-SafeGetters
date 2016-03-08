@@ -363,7 +363,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = test_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "re.test-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = olehkulykov.NSDictionarySafeGetters;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -374,7 +374,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = test_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "re.test-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = olehkulykov.NSDictionarySafeGetters;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
