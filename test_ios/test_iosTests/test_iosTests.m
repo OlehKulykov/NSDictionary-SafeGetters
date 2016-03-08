@@ -394,9 +394,6 @@
 	s = [NSString stringWithFormat:@"%lli", (long long)INT64_MIN];
 	XCTAssert([@{@"k" : s} unsignedIntegerForKey:@"k"] == 0);
 
-	s = [NSString stringWithFormat:@"%lli", (long long)INT64_MAX];
-	XCTAssert([@{@"k" : s} unsignedIntegerForKey:@"k"] == NSIntegerMax);
-
 	s = [NSString stringWithFormat:@"%llu", (unsigned long long)UINT64_MAX];
 	XCTAssert([@{@"k" : s} unsignedIntegerForKey:@"k"] == NSUIntegerMax);
 
