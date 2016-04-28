@@ -1,5 +1,6 @@
-[![CocoaPods](https://img.shields.io/cocoapods/p/NSDictionary+SafeGetters.svg?style=flat)](https://cocoapods.org/pods/NSDictionary+SafeGetters)
-[![CocoaPods](https://img.shields.io/cocoapods/v/NSDictionary+SafeGetters.svg?style=flat)](https://cocoapods.org/pods/NSDictionary+SafeGetters)
+[![Platform](https://img.shields.io/cocoapods/p/NSDictionary+SafeGetters.svg?style=flat)](http://cocoapods.org/pods/NSDictionary+SafeGetters)
+[![Version](https://img.shields.io/cocoapods/v/NSDictionary+SafeGetters.svg?style=flat)](http://cocoapods.org/pods/NSDictionary+SafeGetters)
+[![License](https://img.shields.io/cocoapods/l/NSDictionary+SafeGetters.svg?style=flat)](http://cocoapods.org/pods/NSDictionary+SafeGetters)
 [![Build Status](https://travis-ci.org/OlehKulykov/NSDictionary-SafeGetters.svg?branch=master)](https://travis-ci.org/OlehKulykov/NSDictionary-SafeGetters)
 
 
