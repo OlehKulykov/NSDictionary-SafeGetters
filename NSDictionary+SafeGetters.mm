@@ -40,8 +40,7 @@
 @implementation NSDictionary(SafeGetters)
 
 #pragma mark - private implementation
-- (int64_t) int64ForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (int64_t) int64ForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -49,14 +48,11 @@
 	id object = aKey ? [self objectForKey:aKey] : nil;
 #endif
 	if (isFound) *isFound = YES;
-	if (object)
-	{
+	if (object) {
 		if ([object isKindOfClass:[NSNumber class]]) return [object longLongValue];
-		else if ([object isKindOfClass:[NSString class]])
-		{
+		else if ([object isKindOfClass:[NSString class]]) {
 			NSDSGNumber n([(NSString *)object UTF8String]);
-			switch (n.type)
-			{
+			switch (n.type) {
 				case 1: return n.data.d; break;
 				case 2: return n.data.i; break;
 				case 3: return (n.data.u >= INT64_MAX) ? INT64_MAX : n.data.u; break;
@@ -69,8 +65,7 @@
 	return 0;
 }
 
-- (uint64_t) uint64ForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (uint64_t) uint64ForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -78,18 +73,12 @@
 	id object = aKey ? [self objectForKey:aKey] : nil;
 #endif
 	if (isFound) *isFound = YES;
-	if (object)
-	{
-		if ([object isKindOfClass:[NSNumber class]])
-		{
-			if ([(NSNumber *)object isNegative]) return 0;
-			return [(NSNumber *)object unsignedLongLongValue];
-		}
-		else if ([object isKindOfClass:[NSString class]])
-		{
+	if (object) {
+		if ([object isKindOfClass:[NSNumber class]]) {
+			return [(NSNumber *)object isNegative] ? 0 : [(NSNumber *)object unsignedLongLongValue];
+		} else if ([object isKindOfClass:[NSString class]]) {
 			NSDSGNumber n([(NSString *)object UTF8String]);
-			switch (n.type)
-			{
+			switch (n.type) {
 				case 1: return (n.data.d > 0) ? n.data.d : 0; break;
 				case 2: return (n.data.i > 0) ? n.data.i : 0; break;
 				case 3: return n.data.u;  break;
@@ -102,8 +91,7 @@
 	return 0;
 }
 
-- (double) doubleForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (double) doubleForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -111,14 +99,11 @@
 	id object = aKey ? [self objectForKey:aKey] : nil;
 #endif
 	if (isFound) *isFound = YES;
-	if (object)
-	{
+	if (object) {
 		if ([object isKindOfClass:[NSNumber class]]) return [object doubleValue];
-		else if ([object isKindOfClass:[NSString class]])
-		{
+		else if ([object isKindOfClass:[NSString class]]) {
 			NSDSGNumber n([(NSString *)object UTF8String]);
-			switch (n.type)
-			{
+			switch (n.type) {
 				case 1: return n.data.d; break;
 				case 2:
 					if (n.data.i <= DBL_MIN) return DBL_MIN;
@@ -135,8 +120,7 @@
 	return 0.0;
 }
 
-- (float) floatForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (float) floatForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -144,14 +128,11 @@
 	id object = aKey ? [self objectForKey:aKey] : nil;
 #endif
 	if (isFound) *isFound = YES;
-	if (object)
-	{
+	if (object) {
 		if ([object isKindOfClass:[NSNumber class]]) return [object floatValue];
-		else if ([object isKindOfClass:[NSString class]])
-		{
+		else if ([object isKindOfClass:[NSString class]]) {
 			NSDSGNumber n([(NSString *)object UTF8String]);
-			switch (n.type)
-			{
+			switch (n.type) {
 				case 1:
 					if (n.data.d >= FLT_MAX) return FLT_MAX;
 					else if (n.data.d <= FLT_MIN) return FLT_MIN;
@@ -172,8 +153,7 @@
 	return 0.0f;
 }
 
-- (BOOL) booleanForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (BOOL) booleanForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -181,14 +161,11 @@
 	id object = aKey ? [self objectForKey:aKey] : nil;
 #endif
 	if (isFound) *isFound = YES;
-	if (object)
-	{
+	if (object) {
 		if ([object isKindOfClass:[NSNumber class]]) return [(NSNumber *)object boolValue];
-		else if ([object isKindOfClass:[NSString class]])
-		{
+		else if ([object isKindOfClass:[NSString class]]) {
 			NSDSGNumber n([(NSString *)object UTF8String]);
-			switch (n.type)
-			{
+			switch (n.type) {
 				case 1: return (n.data.d == 0) ? NO : YES; break;
 				case 2: return (n.data.i == 0) ? NO : YES; break;
 				case 3: return (n.data.u == 0) ? NO : YES; break;
@@ -201,8 +178,7 @@
 	return NO;
 }
 
-- (nullable NSString *) nonEmptyStringForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (nullable NSString *) nonEmptyStringForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -210,15 +186,11 @@
 	id object = aKey ? [self objectForKey:aKey] : nil;
 #endif
 	if (isFound) *isFound = YES;
-	if (object)
-	{
-		if ([object isKindOfClass:[NSString class]])
-		{
+	if (object) {
+		if ([object isKindOfClass:[NSString class]]) {
 			if ([(NSString *)object length] > 0) return (NSString *)object;
-		}
-		else if ([object isKindOfClass:[NSNumber class]])
-		{
-			NSString * s = [(NSNumber *)object description];
+		} else if ([object isKindOfClass:[NSNumber class]]) {
+			NSString * s = [(NSNumber *)object descriptionWithLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
 			if (s && [s length] > 0) return s;
 		}
 	}
@@ -226,8 +198,7 @@
 	return nil;
 }
 
-- (nullable NSNumber *) numberForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (nullable NSNumber *) numberForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -235,14 +206,11 @@
 	id object = aKey ? [self objectForKey:aKey] : nil;
 #endif
 	if (isFound) *isFound = YES;
-	if (object)
-	{
+	if (object) {
 		if ([object isKindOfClass:[NSNumber class]]) return (NSNumber *)object;
-		else if ([object isKindOfClass:[NSString class]])
-		{
+		else if ([object isKindOfClass:[NSString class]]) {
 			NSDSGNumber n([(NSString *)object UTF8String]);
-			switch (n.type)
-			{
+			switch (n.type) {
 				case 1: return [NSNumber numberWithDouble:n.data.d]; break;
 				case 2: return [NSNumber numberWithLongLong:n.data.i]; break;
 				case 3: return [NSNumber numberWithUnsignedLongLong:n.data.u]; break;
@@ -255,8 +223,7 @@
 	return nil;
 }
 
-- (nullable NSString *) stringForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (nullable NSString *) stringForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -264,17 +231,15 @@
 	id object = aKey ? [self objectForKey:aKey] : nil;
 #endif
 	if (isFound) *isFound = YES;
-	if (object)
-	{
+	if (object) {
 		if ([object isKindOfClass:[NSString class]]) return (NSString *)object;
-		else if ([object isKindOfClass:[NSNumber class]]) return [(NSNumber *)object description];
+		else if ([object isKindOfClass:[NSNumber class]]) return [(NSNumber *)object descriptionWithLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
 	}
 	if (isFound) *isFound = NO;
 	return nil;
 }
 
-- (nullable NSArray *) arrayForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (nullable NSArray *) arrayForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -287,8 +252,7 @@
 	return nil;
 }
 
-- (nullable NSDictionary *) dictionaryForKey:(nonnull id) aKey found:(BOOL *) isFound
-{
+- (nullable NSDictionary *) dictionaryForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
 	id object = [self objectForKey:aKey];
@@ -302,13 +266,11 @@
 }
 
 #pragma mark - public implementation
-- (NSInteger) integerForKey:(nonnull id) aKey
-{
+- (NSInteger) integerForKey:(nonnull id) aKey {
 	return [self integerForKeys:aKey, nil];
 }
 
-- (NSInteger) integerForKeys:(nonnull id) firstKey, ...
-{
+- (NSInteger) integerForKeys:(nonnull id) firstKey, ... {
 	int64_t result = 0;
 	NSDICT_READ_ARGS_TO_RESULT(int64ForKey)
 	if (result >= NSIntegerMax) return (NSInteger)NSIntegerMax;
@@ -316,68 +278,57 @@
 	return (NSInteger)result;
 }
 
-- (NSUInteger) unsignedIntegerForKey:(nonnull id) aKey
-{
+- (NSUInteger) unsignedIntegerForKey:(nonnull id) aKey {
 	return [self unsignedIntegerForKeys:aKey, nil];
 }
 
-- (NSUInteger) unsignedIntegerForKeys:(nonnull id) firstKey, ...
-{
+- (NSUInteger) unsignedIntegerForKeys:(nonnull id) firstKey, ... {
 	uint64_t result = 0;
 	NSDICT_READ_ARGS_TO_RESULT(uint64ForKey)
 	return (result >= NSUIntegerMax) ? (NSUInteger)NSUIntegerMax : (NSUInteger)result;
 }
 
-- (int64_t) int64ForKey:(nonnull id) aKey
-{
+- (int64_t) int64ForKey:(nonnull id) aKey {
 	return [self int64ForKey:aKey found:nil]; // no need conversion, call directly
 }
 
-- (int64_t) int64ForKeys:(nonnull id) firstKey, ...
-{
+- (int64_t) int64ForKeys:(nonnull id) firstKey, ... {
 	int64_t result = 0;
 	NSDICT_READ_ARGS_TO_RESULT(int64ForKey)
 	return result;
 }
 
-- (uint64_t) uint64ForKey:(nonnull id) aKey
-{
+- (uint64_t) uint64ForKey:(nonnull id) aKey {
 	return [self uint64ForKey:aKey found:nil]; // no need conversion, call directly
 }
 
-- (uint64_t) uint64ForKeys:(nonnull id) firstKey, ...
-{
+- (uint64_t) uint64ForKeys:(nonnull id) firstKey, ... {
 	uint64_t result = 0;
 	NSDICT_READ_ARGS_TO_RESULT(uint64ForKey)
 	return result;
 }
 
-- (double) doubleForKey:(nonnull id) aKey
-{
+- (double) doubleForKey:(nonnull id) aKey {
 	return [self doubleForKey:aKey found:nil];
 }
 
-- (double) doubleForKeys:(nonnull id) firstKey, ...
-{
+- (double) doubleForKeys:(nonnull id) firstKey, ... {
 	double result = 0.0;
 	NSDICT_READ_ARGS_TO_RESULT(doubleForKey)
 	return result;
 }
 
-- (float) floatForKey:(nonnull id) aKey
-{
+- (float) floatForKey:(nonnull id) aKey {
 	return [self floatForKey:aKey found:nil];
 }
 
-- (float) floatForKeys:(nonnull id) firstKey, ...
-{
+- (float) floatForKeys:(nonnull id) firstKey, ... {
 	float result = 0.0f;
 	NSDICT_READ_ARGS_TO_RESULT(floatForKey)
 	return result;
 }
 
-- (CGFloat) cgFloatForKey:(nonnull id) aKey
-{
+- (CGFloat) cgFloatForKey:(nonnull id) aKey {
 #if defined(CGFLOAT_IS_DOUBLE)
 #if CGFLOAT_IS_DOUBLE
 	return [self doubleForKey:aKey found:nil];
@@ -389,8 +340,7 @@
 #endif
 }
 
-- (CGFloat) cgFloatForKeys:(nonnull id) firstKey, ...
-{
+- (CGFloat) cgFloatForKeys:(nonnull id) firstKey, ... {
 #if defined(CGFLOAT_IS_DOUBLE)
 #if CGFLOAT_IS_DOUBLE
 	double result = 0.0;
@@ -408,73 +358,61 @@
 #endif
 }
 
-- (BOOL) booleanForKey:(nonnull id) aKey
-{
+- (BOOL) booleanForKey:(nonnull id) aKey {
 	return [self booleanForKey:aKey found:nil];
 }
 
-- (BOOL) booleanForKeys:(nonnull id) firstKey, ...
-{
+- (BOOL) booleanForKeys:(nonnull id) firstKey, ... {
 	BOOL result = NO;
 	NSDICT_READ_ARGS_TO_RESULT(booleanForKey)
 	return result;
 }
 
-- (nullable NSString *) nonEmptyStringForKey:(nonnull id) aKey
-{
+- (nullable NSString *) nonEmptyStringForKey:(nonnull id) aKey {
 	return [self nonEmptyStringForKey:aKey found:nil];
 }
 
-- (nullable NSString *) nonEmptyStringForKeys:(nonnull id) firstKey, ...
-{
+- (nullable NSString *) nonEmptyStringForKeys:(nonnull id) firstKey, ... {
 	NSString * result = nil;
 	NSDICT_READ_ARGS_TO_RESULT(nonEmptyStringForKey)
 	return result;
 }
 
-- (nullable NSNumber *) numberForKey:(nonnull id) aKey
-{
+- (nullable NSNumber *) numberForKey:(nonnull id) aKey {
 	return [self numberForKey:aKey found:nil];
 }
 
-- (nullable NSNumber *) numberForKeys:(nonnull id) firstKey, ...
-{
+- (nullable NSNumber *) numberForKeys:(nonnull id) firstKey, ... {
 	NSNumber * result = nil;
 	NSDICT_READ_ARGS_TO_RESULT(numberForKey)
 	return result;
 }
 
-- (nullable NSString *) stringForKey:(nonnull id) aKey
-{
+- (nullable NSString *) stringForKey:(nonnull id) aKey {
 	return [self stringForKey:aKey found:nil];
 }
 
-- (nullable NSString *) stringForKeys:(nonnull id) firstKey, ...
-{
+- (nullable NSString *) stringForKeys:(nonnull id) firstKey, ... {
 	NSString * result = nil;
 	NSDICT_READ_ARGS_TO_RESULT(stringForKey)
 	return result;
 }
 
-- (nullable NSArray *) arrayForKey:(nonnull id) aKey
-{
+- (nullable NSArray *) arrayForKey:(nonnull id) aKey {
 	return [self arrayForKey:aKey found:nil];
 }
 
-- (nullable NSArray *) arrayForKeys:(nonnull id) firstKey, ...
-{
+- (nullable NSArray *) arrayForKeys:(nonnull id) firstKey, ... {
 	NSArray * result = nil;
 	NSDICT_READ_ARGS_TO_RESULT(arrayForKey)
 	return result;
 }
 
-- (nullable NSDictionary *) dictionaryForKey:(nonnull id) aKey
-{
+- (nullable NSDictionary *) dictionaryForKey:(nonnull id) aKey {
 	return [self dictionaryForKey:aKey found:nil];
 }
 
-- (nullable NSDictionary *) dictionaryForKeys:(nonnull id) firstKey, ...
-{
+- (nullable NSDictionary *) dictionaryForKeys:(nonnull id) firstKey, ... {
 	NSDictionary * result = nil;
 	NSDICT_READ_ARGS_TO_RESULT(dictionaryForKey)
 	return result;
@@ -485,8 +423,7 @@
 
 @implementation NSNumber(ValueTypeCheck)
 
-- (BOOL) isNegative
-{
+- (BOOL) isNegative {
 	const NSUInteger t = *(const uint16_t*)[self objCType];
 	/// can't hardcode @encode result, just use in runtime.
 	if (t == *(const uint16_t*)@encode(int)) return ([self intValue] < 0);

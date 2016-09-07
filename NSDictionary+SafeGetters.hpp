@@ -22,13 +22,13 @@
 
 
 #ifndef __NSDICTIONARY_SAFEGETTERS_HPP__
-#define __NSDICTIONARY_SAFEGETTERS_HPP__
+#define __NSDICTIONARY_SAFEGETTERS_HPP__ 1
 
-class NSDSGNumber
-{
+#include <string.h>
+
+class NSDSGNumber {
 public:
-	union
-	{
+	union {
 		unsigned long long u;
 		long long i;
 		double d;
@@ -37,23 +37,19 @@ public:
 
 	char type;
 
-	char readBoolean(const char * str)
-	{
-		if (strncmp(str, "true", 4) == 0 || strncmp(str, "YES", 3) == 0)
-		{
+	char readBoolean(const char * str) {
+		if (strncasecmp(str, "true", 4) == 0 || strncasecmp(str, "YES", 3) == 0) {
 			data.b = YES;
 			return 4;
 		}
-		if (strncmp(str, "false", 5) == 0 || strncmp(str, "NO", 2) == 0)
-		{
+		if (strncasecmp(str, "false", 5) == 0 || strncasecmp(str, "NO", 2) == 0) {
 			data.b = NO;
 			return 4;
 		}
 		return 0;
 	}
 
-	char read(const char * str)
-	{
+	char read(const char * str) {
 		const char result = this->readBoolean(str);
 		if (result) return result;
 
@@ -61,19 +57,14 @@ public:
 		const char * s = str;
 		while (*s && !isReal) if (*s++ == '.') isReal = 1;
 
-		while (*str)
-		{
+		while (*str) {
 			isNegative = (*str == '-');
-			if (isReal)
-			{
+			if (isReal) {
 				if (sscanf(str, "%lf", &data.d) == 1) return 1;
 			}
-			if (isNegative)
-			{
+			if (isNegative) {
 				if (sscanf(str, "%lli", &data.i) == 1) return 2;
-			}
-			else
-			{
+			} else {
 				if (sscanf(str, "%llu", &data.u) == 1) return 3;
 			}
 			str++;
@@ -81,7 +72,10 @@ public:
 		return 0;
 	}
 
-	NSDSGNumber(const char * str) { data.u = 0; type = str ? this->read(str) : 0; }
+	NSDSGNumber(const char * str) {
+		data.u = 0;
+		type = str ? this->read(str) : 0;
+	}
 };
 
 #endif
