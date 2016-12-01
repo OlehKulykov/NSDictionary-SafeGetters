@@ -234,6 +234,22 @@
 
 
 /**
+ @brief Get decimal number object for key.
+ @param aKey The key object. Should not be nil.
+ @return Decimal number object or nil if finded object is not number or nil.
+ */
+- (nullable NSDecimalNumber *) decimalNumberForKey:(nonnull id) aKey;
+
+
+/**
+ @brief Get decimal number object from first located object by one of the key(firstKey or other in list).
+ @param firstKey The first key object and than next key objects with last nil. firstKey - should not be nil.
+ @return Decimal number object or nil if finded object is not number or nil.
+ */
+- (nullable NSDecimalNumber *) decimalNumberForKeys:(nonnull id) firstKey, ... NS_REQUIRES_NIL_TERMINATION;
+
+
+/**
  @brief Get string object for key.
  @detailed In a case of NSNumber object, returns number localized description with en-US locale.
  @param aKey The key object. Should not be nil.

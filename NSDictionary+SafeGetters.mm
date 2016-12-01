@@ -223,6 +223,29 @@
 	return nil;
 }
 
+- (nullable NSDecimalNumber *) decimalNumberForKey:(nonnull id) aKey found:(BOOL *) isFound {
+#if defined(DEBUG) || defined(_DEBUG)
+    NSParameterAssert(aKey);
+    id object = [self objectForKey:aKey];
+#else
+    id object = aKey ? [self objectForKey:aKey] : nil;
+#endif
+    if (isFound) *isFound = YES;
+    if (object) {
+        if ([object isKindOfClass:[NSDecimalNumber class]]) {
+            return (NSDecimalNumber *)object;
+        } else if ([object isKindOfClass:[NSNumber class]]) {
+            NSLocale * posixLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+            NSString * stringPresentation = [(NSNumber *)object descriptionWithLocale:posixLocale];
+            return [[NSDecimalNumber alloc] initWithString:stringPresentation locale:posixLocale];
+        } else if ([object isKindOfClass:[NSString class]]) {
+            return [[NSDecimalNumber alloc] initWithString:(NSString *)object locale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        }
+    }
+    if (isFound) *isFound = NO;
+    return nil;
+}
+
 - (nullable NSString *) stringForKey:(nonnull id) aKey found:(BOOL *) isFound {
 #if defined(DEBUG) || defined(_DEBUG)
 	NSParameterAssert(aKey);
@@ -386,6 +409,16 @@
 	NSNumber * result = nil;
 	NSDICT_READ_ARGS_TO_RESULT(numberForKey)
 	return result;
+}
+
+- (nullable NSDecimalNumber *) decimalNumberForKey:(nonnull id) aKey {
+    return [self decimalNumberForKey:aKey found:nil];
+}
+
+- (nullable NSDecimalNumber *) decimalNumberForKeys:(nonnull id) firstKey, ... {
+    NSDecimalNumber * result = nil;
+    NSDICT_READ_ARGS_TO_RESULT(decimalNumberForKey)
+    return result;
 }
 
 - (nullable NSString *) stringForKey:(nonnull id) aKey {

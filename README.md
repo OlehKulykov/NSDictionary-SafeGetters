@@ -63,6 +63,7 @@ XCTAssertEqualObjects(idNumber, @5678); // <- "_id" located and converted from s
 - (BOOL) booleanForKey:(nonnull id) aKey; // [NO; YES]
 - (nullable NSString *) nonEmptyStringForKey:(nonnull id) aKey; // only not empty strings
 - (nullable NSNumber *) numberForKey:(nonnull id) aKey; // only numbers
+- (nullable NSDecimalNumber *) decimalNumberForKey:(nonnull id) aKey; only decimal numbers
 - (nullable NSString *) stringForKey:(nonnull id) aKey; // only strings, also empty
 - (nullable NSArray *) arrayForKey:(nonnull id) aKey; // only arrays
 - (nullable NSDictionary *) dictionaryForKey:(nonnull id) aKey; // only dictionaries

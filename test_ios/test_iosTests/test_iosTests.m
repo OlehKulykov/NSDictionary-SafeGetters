@@ -613,6 +613,52 @@
 	XCTAssert([@{@"k" : s} nonEmptyStringForKey:@"k"] != nil);
 }
 
+- (void) testDecimalNumbers
+{
+    XCTAssert([@{ @"k" : @"0" } decimalNumberForKey:@"k"] != nil);
+    XCTAssert([[@{ @"k" : @"0" } decimalNumberForKey:@"k"] isKindOfClass:[NSDecimalNumber class]]);
+    
+    XCTAssert([@{ @"k" : @(0) } decimalNumberForKey:@"k"] != nil);
+    XCTAssert([[@{ @"k" : @(0) } decimalNumberForKey:@"k"] isKindOfClass:[NSDecimalNumber class]]);
+    
+    XCTAssert([@{ @"k" : @(-1) } decimalNumberForKey:@"k"] != nil);
+    XCTAssert([[@{ @"k" : @(-1) } decimalNumberForKey:@"k"] isKindOfClass:[NSDecimalNumber class]]);
+    
+    XCTAssert([@{ @"k" : @(1) } decimalNumberForKey:@"k"] != nil);
+    XCTAssert([[@{ @"k" : @(1) } decimalNumberForKey:@"k"] isKindOfClass:[NSDecimalNumber class]]);
+    
+    XCTAssert([@{ @"k" : @(1.01) } decimalNumberForKey:@"k"] != nil);
+    XCTAssert([[@{ @"k" : @(1.01) } decimalNumberForKey:@"k"] isKindOfClass:[NSDecimalNumber class]]);
+    
+    XCTAssert([@{ @"k" : @"0.1" } decimalNumberForKey:@"k"] != nil);
+    XCTAssert([[@{ @"k" : @"0.1" } decimalNumberForKey:@"k"] isKindOfClass:[NSDecimalNumber class]]);
+    
+    XCTAssert([[@{ @"k" : @(0) } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"0"]] == NSOrderedSame);
+    XCTAssert([[@{ @"k" : @(1) } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"1"]] == NSOrderedSame);
+    
+    XCTAssert([[@{ @"k" : @(0.1) } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"0.1"]] == NSOrderedSame);
+    XCTAssert([[@{ @"k" : @(1.001) } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"1.001"]] == NSOrderedSame);
+    
+    XCTAssert([[@{ @"k" : @(0.001) } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"0.001"]] == NSOrderedSame);
+    XCTAssert([[@{ @"k" : @(-0.001) } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"-0.001"]] == NSOrderedSame);
+    
+    XCTAssert([[@{ @"k" : @(0.0001) } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"0.0001"]] == NSOrderedSame);
+    XCTAssert([[@{ @"k" : @(-0.0001) } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"-0.0001"]] == NSOrderedSame);
+    
+    
+    XCTAssert([[@{ @"k" : @"0" } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"0"]] == NSOrderedSame);
+    XCTAssert([[@{ @"k" : @"1" } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"1"]] == NSOrderedSame);
+    
+    XCTAssert([[@{ @"k" : @"0.1" } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"0.1"]] == NSOrderedSame);
+    XCTAssert([[@{ @"k" : @"1.001" } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"1.001"]] == NSOrderedSame);
+    
+    XCTAssert([[@{ @"k" : @"0.001" } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"0.001"]] == NSOrderedSame);
+    XCTAssert([[@{ @"k" : @"-0.001" } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"-0.001"]] == NSOrderedSame);
+    
+    XCTAssert([[@{ @"k" : @"0.00001" } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"0.00001"]] == NSOrderedSame);
+    XCTAssert([[@{ @"k" : @"-0.00001" } decimalNumberForKey:@"k"] compare:[NSDecimalNumber decimalNumberWithString:@"-0.00001"]] == NSOrderedSame);
+}
+
 - (void) setUp
 {
     [super setUp];

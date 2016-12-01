@@ -1,4 +1,7 @@
-Changes on version 2.1.2 (current):
+Changes on version 2.2.1 (current):
+- Casting to NSDecimalNumber.
+
+Changes on version 2.1.2:
 - Tests small fix.
 
 Changes on version 2.1.1:
